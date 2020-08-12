@@ -19,11 +19,10 @@ export default memo(function NewAblum() {
     newAblums: state.getIn(["recommend", "newAlbum"])
   }), shallowEqual)
   const dispatch = useDispatch()
-  console.log(state.newAblums[0]);
   // hooks
   const carouseRef = useRef()
   useEffect(() => {
-    dispatch(getAlumAction())
+    dispatch(getAlumAction(167876))
   }, [dispatch])
 
   return (

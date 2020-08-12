@@ -10,7 +10,7 @@ import store from './store';
 
 import AppFooter from '@/components/app-footer'
 import AppHeader from '@/components/app-header'
-
+import PlayBar from '@/pages/player/app-player-bar'
 
 
 export default memo(function () {
@@ -20,6 +20,7 @@ export default memo(function () {
         <AppHeader></AppHeader>
         {renderRoutes(routes)}
         <AppFooter></AppFooter>
+        <PlayBar></PlayBar>
       </HashRouter>
     </Provider>
   );
