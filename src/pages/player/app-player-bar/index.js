@@ -2,7 +2,7 @@ import React, { memo, useRef, useEffect, useState, useCallback } from 'react'
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 
 import classnames from 'classnames'
-import { getSizeImage, formatDate, getPlaySong, throttle, debounce } from '@/utils/format-util';
+import { getSizeImage, formatDate, getPlaySong} from '@/utils/format-util';
 
 import { getSongDetailAction } from '../store/actionCreators';
 
@@ -20,7 +20,6 @@ export default memo(function PlayerBar() {
   const [progress, setProgress] = useState(0)
   const [isChanging, setIsChanging] = useState(false) // 滑动式设置为true
   const [isPlaying, setIsPlaying] = useState(false)
-  const [slide, setSlide] = useState(null)
   const [isLock, setIsLock] = useState(false)
 
 
@@ -82,23 +81,9 @@ export default memo(function PlayerBar() {
     },
     [duration, isPlaying, playMusic],
   )
-  
-  const slideUpAnimation = useCallback(throttle(() => {
-    setSlide('slideUp')
-  }),[])
-
-  const slideDownAnimation = useCallback(debounce(() => {
-    setSlide('slideDown')
-  },1500),[])
-
 
   return (
-    <PlayerBarWrapper>
-      <div
-        className={classnames("sprite_player", "transition-wrapper", slide, 'm-playbar-unlock')}
-        onMouseMove={e => { slideUpAnimation() }}
-        onMouseLeave={e => { slideDownAnimation()}}
-      >
+    <PlayerBarWrapper className="sprite_player" lock={isLock}>
         <div className="content wrap-v2">
           <Control isPlaying={isPlaying}>
             <button className="sprite_player prev"></button>
@@ -147,7 +132,6 @@ export default memo(function PlayerBar() {
         <Lock className="sprite_player" lock={isLock}>
           <button className="lock-btn sprite_player" onClick={ () => {setIsLock(!isLock)} }></button>
         </Lock>
-      </div>
     </PlayerBarWrapper >
   )
 })

@@ -1,55 +1,27 @@
 import styled from 'styled-components'
 
 export const PlayerBarWrapper = styled.div`
-  .transition-wrapper{
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:-47px;
-    height:52px;
-    background-position:0 0;
-    background-repeat: repeat;
-    .hand {
-      position:absolute;
-      width:100%;
-      top:-15px;
-      height:20px;
-    }
-    .content {
-      display:flex;
-      height: 52px;
-      padding-top:8px;
-    }
-    .lock {
-    
-    }
-  } 
-  .m-playbar-unlock {
-    @keyframes slideUp {
-      from {
-        bottom:-47px;
-      }
-      to {
-        bottom:0;
-      }
-    }
-    @keyframes slideDown {
-      from {
-        bottom:0;
-      }
-      to {
-        bottom:-47px;
-      }
-    }
- 
-    &.slideUp {
-      animation: slideUp 0.6s ease;
-      bottom:0;
-    }
-    &.slideDown {
-      animation: slideDown 0.6s ease;
-      bottom:-47px;
-    }
+  position:fixed;
+  left:0;
+  right:0;
+  bottom: ${props => props.lock ? "0" : "-47px"};
+  height:52px;
+  background-position:0 0;
+  background-repeat: repeat;
+  transition:bottom .5s ease-out;
+  &:hover {
+    bottom:0px;
+  }
+  .hand {
+    position:absolute;
+    width:100%;
+    top:-15px;
+    height:20px;
+  }
+  .content {
+    display:flex;
+    height: 52px;
+    padding-top:8px;
   }
 `
 
