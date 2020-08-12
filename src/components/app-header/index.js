@@ -1,4 +1,4 @@
-import React, { memo,useState } from 'react'
+import React, { memo } from 'react'
 
 import { NavLink } from 'react-router-dom'
 import classNames from 'classnames';
@@ -11,12 +11,11 @@ import { Input } from 'antd';
 import { HeaderWrapper, HeaderLeft, HeaderRight } from './style'
 
 export default memo(function FCAppHeader() {
-  const [currentIndex, setcurrentIndex] = useState(-1)
 
   const showSelectItem = (item, index) => {
     if (index < 3) {
       return (
-        <NavLink to={item.link} exact>
+        <NavLink to={item.link}>
           {item.title}
           <i className="sprite_01 icon"></i>
         </NavLink>
@@ -36,8 +35,8 @@ export default memo(function FCAppHeader() {
               return (
                 <div 
                   key={item.title} 
-                  className={classNames("select-item",{active:index === currentIndex})} 
-                  onClick={ e => { setcurrentIndex(index)}} >
+                  className={classNames("select-item")} 
+                  >
                   {showSelectItem(item, index)}
                 </div>
               )
