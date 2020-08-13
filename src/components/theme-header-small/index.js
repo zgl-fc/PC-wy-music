@@ -5,9 +5,9 @@ import {
   ThemeHeaderSmallWrapper
 } from './style'
 const FCThemeHeaderSmall = memo(function (props) {
-  const { title, more } = props
+  const { title, more, width= '210px'  } = props
   return (
-    <ThemeHeaderSmallWrapper>
+    <ThemeHeaderSmallWrapper width={width}>
       <span>{title}</span>
       <a href="/abc">{more}</a>
     </ThemeHeaderSmallWrapper>

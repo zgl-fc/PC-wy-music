@@ -25,6 +25,24 @@ export const BannerWrapper = styled.div`
       right:-68px;
       background-position: 0 -508px;
     }
+    .dots {
+      position:absolute;
+      bottom:10px;
+      width:730px;
+      text-align:center;
+      .dot-item {
+        display:inline-block;
+        margin-right:20px;
+        width:6px;
+        height:6px;
+        border-radius:6px;
+        background-color:#FFF;
+        cursor: pointer;
+        &:hover,&.active {
+          background-color:#bb0b0b;
+        }
+      }
+    }
   }
   
 `

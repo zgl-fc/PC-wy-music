@@ -4,7 +4,7 @@ export const ThemeHeaderSmallWrapper = styled.div`
   display:flex;
   justify-content:space-between;
   height:24px;
-  width:210px;
+  width: ${props => props.width};
   margin:0 auto;
   border-bottom: 1px solid #ccc;
   span {

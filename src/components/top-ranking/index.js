@@ -33,7 +33,7 @@ export default memo(function FCTopRanking(props) {
             return (
               <dd key={item.id} className="top-item">
                 <span className={classnames("no", { "top-3": index < 3 })}>{index + 1}</span>
-                <a href={`#/song?id=${item.id}`} className="song text-nowrap">{item.name}</a>
+                <a href={`#/song/${item.id}`} className="song text-nowrap">{item.name}</a>
                 <div className="opr">
                   <a href="" className="top-play sprite_02">播放</a>
                   <a href="" className="top-add sprite_icon2">添加</a>

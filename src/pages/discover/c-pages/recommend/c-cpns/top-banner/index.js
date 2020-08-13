@@ -1,6 +1,8 @@
 import React, { memo, useEffect, useState, useRef, useCallback } from 'react'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 
+import classnames from 'classnames'
+
 import { getTopBannerAction } from '../../store/actionCreators'
 
 import { Carousel } from 'antd';
@@ -36,7 +38,7 @@ export default memo(function FCTopBanner() {
     <BannerWrapper  bgImage={bgImage}>
       <div className="banner wrap-v2">
         <BannerLeft>
-          <Carousel effect="fade" autoplay ref={bannerRef} beforeChange={bannerChange}>
+          <Carousel effect="fade" autoplay ref={bannerRef} beforeChange={bannerChange} dots={false}>
             {
               topBanners.map((item, index) => {
                 return (
@@ -51,6 +53,20 @@ export default memo(function FCTopBanner() {
         <BannerRight></BannerRight>
         <a href="javascript:;" className="control_left" onClick={() => { bannerRef.current.prev() }}></a>
         <a href="javascript:;" className="control_right" onClick={() => { bannerRef.current.next() }}></a>
+        <ul className="dots">
+          {
+            topBanners.map((item,index) => {
+              return (
+                <li 
+                key={item.imageUrl} 
+                className={classnames("dot-item",{'active':index === currentIndex })}
+                onClick={ e => { bannerRef.current.goTo(index) }}
+                >
+                </li>
+              )
+            })
+          }
+        </ul>
       </div>
     </BannerWrapper>
   )

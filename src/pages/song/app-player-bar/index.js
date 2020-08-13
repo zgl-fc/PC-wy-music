@@ -1,7 +1,6 @@
 import React, { memo, useRef, useEffect, useState, useCallback } from 'react'
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 
-import classnames from 'classnames'
 import { getSizeImage, formatDate, getPlaySong} from '@/utils/format-util';
 
 import { getSongDetailAction } from '../store/actionCreators';
@@ -25,7 +24,7 @@ export default memo(function PlayerBar() {
 
   //redux hook
   const { currentSong } = useSelector(state => ({
-    currentSong: state.getIn(['player', 'currentSong'])
+    currentSong: state.getIn(['song', 'currentSong'])
   }), shallowEqual)
   const dispatch = useDispatch()
 
@@ -46,10 +45,10 @@ export default memo(function PlayerBar() {
   const showCurrentTime = formatDate(currentTime, "mm:ss")
 
   // handle function 
-  const playMusic = () => {
+  const playMusic = useCallback(() => {
     isPlaying ? audioRef.current.pause() : audioRef.current.play()
     setIsPlaying(!isPlaying)
-  }
+  },[isPlaying])
 
   const timeUpdate = (e) => {
     if (!isChanging) {

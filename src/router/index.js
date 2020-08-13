@@ -4,10 +4,12 @@ import { Redirect } from "react-router-dom";
 import FCDiscover from '@/pages/discover'
 import FCRecommend from "../pages/discover/c-pages/recommend";
 import FCRanking from "../pages/discover/c-pages/ranking";
-import FCSongs from "../pages/discover/c-pages/songs";
+import FCPlayList from "../pages/discover/c-pages/play-list";
 import FCDjradio from "../pages/discover/c-pages/djradio";
 import FCArtist from "../pages/discover/c-pages/artist";
 import FCAlbum from "../pages/discover/c-pages/album";
+
+import FCSong from "@/pages/song";
 
 
 import FCFriend from '@/pages/friend'
@@ -16,21 +18,21 @@ import FCMine from '@/pages/mine'
 
 const routes = [
   {
-    path:'/',
-    exact:true,
-    render:() => (
-      <Redirect to='/discover'/>
+    path: '/',
+    exact: true,
+    render: () => (
+      <Redirect to='/discover' />
     )
   },
   {
-    path:'/discover',
-    component:FCDiscover,
+    path: '/discover',
+    component: FCDiscover,
     routes: [
       {
         path: "/discover",
         exact: true,
         render: () => (
-          <Redirect to="/discover/recommend"/>
+          <Redirect to="/discover/recommend" />
         )
       },
       {
@@ -42,8 +44,8 @@ const routes = [
         component: FCRanking
       },
       {
-        path: "/discover/songs",
-        component: FCSongs
+        path: "/discover/playlist",
+        component: FCPlayList
       },
       {
         path: "/discover/djradio",
@@ -61,12 +63,16 @@ const routes = [
     ]
   },
   {
-    path:'/mine',
-    component:FCMine
+    path: '/mine',
+    component: FCMine
   },
   {
-    path:'/friend',
-    component:FCFriend
+    path: '/friend',
+    component: FCFriend
+  },
+  {
+    path: '/song/:id',
+    component: FCSong
   }
 ]
 

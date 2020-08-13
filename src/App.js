@@ -10,7 +10,7 @@ import store from './store';
 
 import AppFooter from '@/components/app-footer'
 import AppHeader from '@/components/app-header'
-import PlayBar from '@/pages/player/app-player-bar'
+import PlayBar from '@/pages/song/app-player-bar'
 
 
 export default memo(function () {

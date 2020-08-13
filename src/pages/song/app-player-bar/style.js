@@ -8,7 +8,7 @@ export const PlayerBarWrapper = styled.div`
   height:52px;
   background-position:0 0;
   background-repeat: repeat;
-  transition:bottom .5s ease-out;
+  transition:bottom .5s ease;
   &:hover {
     bottom:0px;
   }

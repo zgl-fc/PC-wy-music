@@ -29,10 +29,9 @@ export default memo(function FCRankingList() {
     <RankingListWrapper>
       <FCThemeHeaderRcm title={'榜单'}/>
       <div className="tops">
+        <FCTopRanking info={state.topOriginList}/>
         <FCTopRanking info={state.topUpList}/>
         <FCTopRanking info={state.topNewList}/>
-        <FCTopRanking info={state.topOriginList}/>
-
       </div>
     </RankingListWrapper>
   )
