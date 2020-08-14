@@ -6,7 +6,9 @@ const defaultState = Map({
   currentSong:{},
   songInfo:{},
   similarSongs:[],
-  similarLists:[]
+  similarLists:[],
+  lyric:{},
+  comments:{}
 })
 
 export default function reducer(state = defaultState, action) {
@@ -19,6 +21,10 @@ export default function reducer(state = defaultState, action) {
       return state.set('similarSongs',action.similarSongs)
     case actionTypes.CHANGE_SIMILAR_LIST:
       return state.set('similarLists',action.similarLists)
+    case actionTypes.CHANGE_LYRIC:
+      return state.set('lyric',action.lyric)
+    case actionTypes.CHANGE_COMMENTS:
+      return state.set('comments',action.comments)
     default:
       return state
   }

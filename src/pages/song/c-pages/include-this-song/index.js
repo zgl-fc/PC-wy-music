@@ -21,10 +21,12 @@ export default memo(function IncludeThisSong(props) {
 
   useEffect(() => {
     dispatch(getSimilarListAction(id))
-  }, [dispatch])
+  }, [dispatch, id])
+
+  const isShow = similarLists.length == 0 ? false : true
 
   return (
-    <IncludeThisSongWrapper>
+    <IncludeThisSongWrapper isShow={isShow}>
       <FCThemeHeaderSmall title="包含这首歌的歌单" width="200px" />
       <ul className="similar-list">
         {

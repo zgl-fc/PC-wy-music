@@ -13,6 +13,17 @@ import { HeaderWrapper, HeaderLeft, HeaderRight } from './style'
 export default memo(function FCAppHeader() {
 
   const showSelectItem = (item, index) => {
+    if (index === 0 ) {
+      return (
+        <NavLink to={item.link} isActive={(match, location) => {
+          const reg = /^[discover|song|playlisy]/
+          return reg.test(location.pathname.slice(1));
+        }}>
+          {item.title}
+          <i className="sprite_01 icon"></i>
+        </NavLink>
+      )
+    }
     if (index < 3) {
       return (
         <NavLink to={item.link}>

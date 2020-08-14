@@ -22,7 +22,7 @@ export default memo(function SimilarSong(props) {
   // hooks
   useEffect(() => {
     dispatch(getSimilarSongAction(id))
-  }, [dispatch])
+  }, [dispatch,id])
 
   // handle function 
   const singerName = useCallback(

@@ -1,7 +1,9 @@
 import { 
   getSongDetail,
   getSimilarSong,
-  getSimilarList
+  getSimilarList,
+  getLyric,
+  getComments
 } from '@/services/song';
 
 import * as actionTypes from './constants'
@@ -28,6 +30,18 @@ const changeSimilarSongAction = (similarSongs) => ({
 const changeSimilarListAction = (similarLists) => ({
   type:actionTypes.CHANGE_SIMILAR_LIST,
   similarLists
+})
+
+//歌词
+const changeLyricAction = (lyric) => ({
+  type:actionTypes.CHANGE_LYRIC,
+  lyric
+})
+
+//评论
+const changeCommentsAction = (comments) => ({
+  type:actionTypes.CHANGE_COMMENTS,
+  comments
 })
 
 export const getSongDetailAction = (ids) => {
@@ -58,6 +72,22 @@ export const getSimilarListAction = (id) => {
   return dispatch => {
     getSimilarList(id).then(res => {
       dispatch(changeSimilarListAction(res.playlists))
+    })
+  }
+}
+
+export const getLyricAction = (id) => {
+  return dispatch => {
+    getLyric(id).then(res => {
+      dispatch(changeLyricAction(res.lrc))
+    })
+  }
+}
+
+export const getCommentsAction = (comment) => {
+  return dispatch => {
+    getComments(comment).then(res => {
+      dispatch(changeCommentsAction(res))
     })
   }
 }

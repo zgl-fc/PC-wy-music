@@ -1,13 +1,23 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo, useState, useEffect, useCallback, Fragment } from 'react'
 import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import { useDispatch, useSelector, shallowEqual} from 'react-redux'
+
+import classnames from 'classnames'
 
 import { getSizeImage } from '@/utils/format-util'
+import Lyric from '@/utils/lyric-parser'
+
 
 import {
-  getSongInfoAction
+  getSongInfoAction,
+  getLyricAction,
+  getCommentsAction
 } from './store/actionCreators'
 
+
+import { Pagination } from 'antd';
+import FCComments from '@/components/comments'
+import FCSubHeader from '@/components/sub-header'
 import IncludeThisSong from './c-pages/include-this-song'
 import SimilarSong from './c-pages/similar-song'
 
@@ -19,25 +29,39 @@ import {
 export default memo(function Song() {
   // props and state
   let { id } = useParams()
+  const [isOpen, setIsOpen] = useState(false)
 
   // redux hook
-  const { songInfo } = useSelector((state) => ({
-    songInfo: state.getIn(['song', 'songInfo'])
+  const { songInfo, lyric, comments } = useSelector((state) => ({
+    songInfo: state.getIn(['song', 'songInfo']),
+    lyric: state.getIn(['song', 'lyric']),
+    comments:state.getIn(['song','comments'])
   }), shallowEqual)
   const dispatch = useDispatch()
 
   // other hook
   useEffect(() => {
     dispatch(getSongInfoAction(id))
-  }, [dispatch])
+    dispatch(getLyricAction(id))
+    dispatch(getCommentsAction({id}))
+  }, [dispatch,id])
 
   // handle var
   const picUrl = songInfo.al && songInfo.al.picUrl
   const singerName = (songInfo.ar && songInfo.ar[0].name) || '不知道谁唱的'
   const album = (songInfo.al && songInfo.al.name) || '不知道'
+  const lyricObj = lyric && lyric.lyric && new Lyric(lyric.lyric)
+  const lyricArr = (lyricObj && lyricObj.lines) || []
+  const paginationCount = comments.total || 1
 
+  // handle function 
+  const paginationChange = useCallback((page, pageSize) => {
+    const offset = page - 1
+    dispatch(getCommentsAction({id,offset}))
+  },[dispatch,id])
   return (
     <SongWrapper>
+      <FCSubHeader></FCSubHeader>
       <div className="content wrap-v2">
         <SongLeft>
           <div className="song">
@@ -65,12 +89,52 @@ export default memo(function Song() {
                 <a href="javascript:;"><i className="icon-down sprite_button"></i>下载</a>
                 <a href="javascript:;" className="com-count"><i className="icon-com sprite_button"></i> (<span>38812</span>)</a>
               </div>
+              <div className="lyric-content">
+                {
+                  lyricArr.slice(0, 14).map((item, index) => {
+                    return (
+                      <Fragment key={item.txt + index}>
+                        {item.txt}
+                        <br />
+                      </Fragment>
+                    )
+                  })
+                }
+                <div className={classnames({'hide':!isOpen})}>
+                {
+                  lyricArr.slice(14).map((item, index) => {
+                    return (
+                      <Fragment key={item.txt + index}>
+                        {item.txt}
+                        <br />
+                      </Fragment>
+                    )
+                  })
+                }
+                </div>
+                <div className="col">
+                  <a href="javascript:;" onClick={ () => { setIsOpen(!isOpen)}}>
+                    {isOpen?'收起':'展开'}
+                    <i 
+                    className={classnames("sprite_icon2", { "icon-close": !isOpen }, { "icon-open": isOpen })}>
+                    </i>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
+          <FCComments comments={comments}></FCComments>
+          <Pagination 
+            defaultCurrent={1} 
+            pageSize={20} 
+            total={paginationCount}
+            showSizeChanger={false}
+            onChange={paginationChange}
+            />
         </SongLeft>
         <SongRight>
-          <IncludeThisSong id={id}/>
-          <SimilarSong id={id}/>
+          <IncludeThisSong id={id} />
+          <SimilarSong id={id} />
         </SongRight>
       </div>
     </SongWrapper>

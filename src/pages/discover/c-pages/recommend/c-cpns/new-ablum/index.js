@@ -22,7 +22,7 @@ export default memo(function NewAblum() {
   // hooks
   const carouseRef = useRef()
   useEffect(() => {
-    dispatch(getAlumAction(167876))
+    dispatch(getAlumAction())
   }, [dispatch])
 
   return (

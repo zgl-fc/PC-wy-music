@@ -21,6 +21,9 @@ export const SongLeft = styled.div`
       height:198px;
       line-height:198px;
       text-align:center;
+      img {
+        height:131px;
+      }
       .mask {
         position:absolute;
         top:-4px;
@@ -133,7 +136,34 @@ export const SongLeft = styled.div`
           }
         }
       }
+      .lyric-content {
+        margin-top: 13px;
+        line-height: 23px;
+        .hide {
+          display:none;
+        }
+        .col {
+          a {
+            color:#0c73c2;
+          }
+          i {
+            display:inline-block;
+            width: 11px;
+            height: 8px;
+          }
+          .icon-close {
+            background-position: -65px -520px;
+          }
+          .icon-open {
+            background-position: -45px -520px;
+          }
+        }
+      }
     }
+  }
+  .ant-pagination {
+    padding-top:20px;
+    text-align:center;
   }
 `
 

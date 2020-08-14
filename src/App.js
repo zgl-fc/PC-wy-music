@@ -8,19 +8,22 @@ import { HashRouter } from 'react-router-dom'
 import routes from './router'
 import store from './store';
 
+import ScrollTop from '@/components/scroll-top'
 import AppFooter from '@/components/app-footer'
 import AppHeader from '@/components/app-header'
 import PlayBar from '@/pages/song/app-player-bar'
+
 
 
 export default memo(function () {
   return (
     <Provider store={store}>
       <HashRouter>
-        <AppHeader></AppHeader>
+        <ScrollTop/>
+        <AppHeader/>
         {renderRoutes(routes)}
-        <AppFooter></AppFooter>
-        <PlayBar></PlayBar>
+        <AppFooter/>
+        <PlayBar/>
       </HashRouter>
     </Provider>
   );

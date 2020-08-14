@@ -12,7 +12,7 @@ export function getHotRecommend() {
   })
 }
 
-export function getNewAlbum(limit, offset) {
+export function getNewAlbum(limit, offset=0) {
   return request({
     url: "/top/album",
     params: {
