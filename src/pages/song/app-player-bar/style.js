@@ -155,14 +155,42 @@ export const Operator = styled.div`
   
 
   .right {
+    position: relative;
     width: 126px;
     padding-left: 13px;
     background-position: -147px -248px;
-    
+    .volume-control {
+      position:absolute;
+      top:-124px;
+      left:8px;
+      padding:15px 0;
+      width:32px;
+      height:113px;
+      background-color:#292929;
+      z-index:3;
+      .ant-slider-vertical {
+        margin:0 10px;
+      }
+      .ant-slider-track {
+        background-color:#C70C0C!important; 
+      }
+      .ant-slider-handle {
+        border: solid 2px #C70C0C;
+      }
+      .ant-slider-handle:focus {
+        border: solid 2px #C70C0C;
+      }
+    }
     .volume {
       background-position: -2px -248px;
       &:hover {
         background-position: -31px -248px;
+      }
+    }
+    .volume-no {
+      background-position: -104px -69px;
+      &:hover {
+        background-position: -126px -69px;
       }
     }
 

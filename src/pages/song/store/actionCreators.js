@@ -11,6 +11,12 @@ import Lyric from '@/utils/lyric-parser'
 
 import * as actionTypes from './constants'
 
+// 点击列表是否是否
+export const isShowPanelAction = (isShowPanel) => ({
+  type:actionTypes.IS_SHOW_PANEL,
+  isShowPanel
+})
+
 // 播放的音乐
 const changeCurrentSongAction = (currentSong) => ({
   type: actionTypes.CHANGE_CURRENT_SONG,
@@ -51,12 +57,6 @@ const changeCommentsAction = (comments) => ({
 const changeSongListAction = (songList) => ({
   type: actionTypes.CHANGE_SONG_LIST,
   songList
-})
-
-// 切换当前播放的音乐序号
-const changeCurrentIndexAction = (currentSongIndex) => ({
-  type: actionTypes.CHANGE_CURRENT_SONG_INDEX,
-  currentSongIndex
 })
 
 const changeCurrentSongIndexAction = (currentSongIndex) => ({
@@ -114,8 +114,6 @@ export const changePlaySongAction = (tag) => {
     })
   }
 }
-
-
 
 //  在其他页面进行播放时调用这个
 export const getCurrentSongAction = (ids) => {

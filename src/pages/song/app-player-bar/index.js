@@ -1,5 +1,6 @@
 import React, { memo, useRef, useEffect, useState, useCallback } from 'react'
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
+import classnames from 'classnames'
 
 import { getSizeImage, formatDate, getPlaySong, throttle } from '@/utils/format-util';
 
@@ -7,7 +8,8 @@ import {
   getCurrentSongAction, 
   changePlaySongAction,
   changePlaySequenceAction,
-  changeCurrentLyricIndexAction
+  changeCurrentLyricIndexAction,
+  isShowPanelAction
 } from '../store/actionCreators';
 
 import AppPlayerPanel from '../app-player-panel'
@@ -26,16 +28,23 @@ export default memo(function PlayerBar() {
   const [isChanging, setIsChanging] = useState(false) // 滑动式设置为true
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLock, setIsLock] = useState(false)
-  const [showPanel, setShowPanel] = useState(false)
-
-
+  const [showVolume, setshowVolume] = useState(false)
+  const [volumeNo, setVolumeNo] = useState(false)
   //redux hook
-  const { currentSong, songList, playSequence,currentLyric, currentLyricIndex} = useSelector(state => ({
+  const { 
+    currentSong, 
+    songList, 
+    playSequence,
+    currentLyric, 
+    currentLyricIndex,
+    isShowPanel
+  } = useSelector(state => ({
     currentSong: state.getIn(['song', 'currentSong']),
     songList: state.getIn(['song', 'songList']),
     playSequence: state.getIn(['song', 'playSequence']),
     currentLyric:state.getIn(['song','currentLyric']),
-    currentLyricIndex:state.getIn(['song','currentLyricIndex'])
+    currentLyricIndex:state.getIn(['song','currentLyricIndex']),
+    isShowPanel:state.getIn(['song','isShowPanel'])
   }), shallowEqual)
   const dispatch = useDispatch()
 
@@ -60,7 +69,6 @@ export default memo(function PlayerBar() {
   const duration = currentSong.dt || 0
   const showDuration = formatDate(duration, "mm:ss")
   const showCurrentTime = formatDate(currentTime * 1000, "mm:ss")
-
   // handle function 
   const playMusic = useCallback(() => {
     isPlaying ? audioRef.current.pause() : audioRef.current.play()
@@ -125,8 +133,16 @@ export default memo(function PlayerBar() {
     dispatch(changePlaySongAction(num))
   },[songList])
 
+  const changeVolume = useCallback((value) => {
+    setVolumeNo(false)
+    const volume = value*1.0 / 100
+    audioRef.current.volume = volume
+    if(volume === 0) {
+      setVolumeNo(true)
+    }
+  },[audioRef])
   return (
-    <PlayerBarWrapper className="sprite_player" lock={showPanel || isLock}>
+    <PlayerBarWrapper className="sprite_player" lock={isShowPanel || isLock}>
       <div className="content wrap-v2">
         <Control isPlaying={isPlaying}>
           <button className="sprite_player prev"
@@ -162,27 +178,34 @@ export default memo(function PlayerBar() {
             </div>
           </div>
         </PlayInfo>
-        <Operator sequence={playSequence}>
+        <Operator sequence={playSequence} >
           <div className="left">
             <button className="sprite_player add btn"></button>
             <button className="sprite_player share btn"></button>
           </div>
           <div className="right">
-            <button className="sprite_player btn volume"></button>
+            {showVolume && 
+            (<div className="volume-control">
+              <Slider vertical defaultValue={100} onChange={changeVolume}/>
+            </div>)}
+            <button 
+            className={classnames("sprite_player","btn",{"volume":!volumeNo},{"volume-no":volumeNo})} 
+            onClick={() => setshowVolume(!showVolume)}>
+            </button>
             <button 
               className="sprite_player btn loop"
               onClick={e => dispatch(changePlaySequenceAction(playSequence + 1))}
             ></button>
-            <button className="sprite_player btn playlist" onClick={() => setShowPanel(!showPanel)}>{songList.length}</button>
+            <button className="sprite_player btn playlist" onClick={() => dispatch(isShowPanelAction(!isShowPanel))}>{songList.length}</button>
           </div>
         </Operator>
       </div>
       <div className="hand"></div>
-      <audio ref={audioRef} onTimeUpdate={timeUpdate} onEnded={timeEnded} />
+      <audio ref={audioRef} onTimeUpdate={timeUpdate} onEnded={timeEnded}/>
       <Lock className="sprite_player" lock={isLock}>
         <button className="lock-btn sprite_player" onClick={() => { setIsLock(!isLock) }}></button>
       </Lock>
-      {showPanel && <AppPlayerPanel/>}
+      {isShowPanel && <AppPlayerPanel/>}
     </PlayerBarWrapper >
   )
 })

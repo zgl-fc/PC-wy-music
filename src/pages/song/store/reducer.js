@@ -13,7 +13,8 @@ const defaultState = Map({
   currentLyricIndex: -1,
   comments:{},
   songList:[],
-  currentLyric:{}// 播放的歌词
+  currentLyric:{},// 播放的歌词
+  isShowPanel:false
 })
 
 export default function reducer(state = defaultState, action) {
@@ -40,6 +41,8 @@ export default function reducer(state = defaultState, action) {
       return state.set('currentLyricIndex',action.currentLyricIndex)
     case actionTypes.CHANGE_CURRENT_LYRIC:
       return state.set('currentLyric',action.currentLyric)
+    case actionTypes.IS_SHOW_PANEL:
+      return state.set('isShowPanel',action.isShowPanel)
     default:
       return state
   }

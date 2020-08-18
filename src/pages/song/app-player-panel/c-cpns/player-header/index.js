@@ -1,14 +1,21 @@
 import React, { memo } from 'react'
+import { useSelector,useDispatch, shallowEqual } from 'react-redux'
+
+import {
+  isShowPanelAction
+} from '../../../store/actionCreators'
 
 import {
   PlayerHeaderWrapper
 } from './style'
-import { useSelector, shallowEqual } from 'react-redux'
 export default memo(function PlayerHeader() {
-  const { songList, currentSong } =useSelector(state => ({
+  const { songList, currentSong, isShowPanel} =useSelector(state => ({
     songList: state.getIn(['song', 'songList']),
-    currentSong: state.getIn(['song', 'currentSong'])
+    currentSong: state.getIn(['song', 'currentSong']),
+    isShowPanel:state.getIn(['song','isShowPanel'])
   }), shallowEqual)
+  const dispatch = useDispatch()
+
   return (
     <PlayerHeaderWrapper>
       <div className="left">
@@ -20,7 +27,7 @@ export default memo(function PlayerHeader() {
       </div>
       <div className="right">
         <p className="song-name">{currentSong.name}</p>
-        <span className="close sprite_playlist"></span>
+        <span className="close sprite_playlist" onClick={() => {dispatch(isShowPanelAction(!isShowPanel))}}></span>
       </div>
     </PlayerHeaderWrapper>
   )

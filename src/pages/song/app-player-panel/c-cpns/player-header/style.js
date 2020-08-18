@@ -67,6 +67,7 @@ export const PlayerHeaderWrapper = styled.div`
     .close {
       width:30px;
       height:30px;
+      margin-right:10px;
       background-position: -195px 9px;
       cursor:pointer;
       &:hover{
