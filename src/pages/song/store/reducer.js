@@ -4,11 +4,16 @@ import * as actionTypes from './constants'
 
 const defaultState = Map({
   currentSong:{},
+  playSequence:0,// 0 顺序播放 1 随机播放 2 单曲循环
+  currentSongIndex: 0,
   songInfo:{},
   similarSongs:[],
   similarLists:[],
-  lyric:{},
-  comments:{}
+  lyric:{},//歌曲详情页的歌词
+  currentLyricIndex: -1,
+  comments:{},
+  songList:[],
+  currentLyric:{}// 播放的歌词
 })
 
 export default function reducer(state = defaultState, action) {
@@ -25,6 +30,16 @@ export default function reducer(state = defaultState, action) {
       return state.set('lyric',action.lyric)
     case actionTypes.CHANGE_COMMENTS:
       return state.set('comments',action.comments)
+    case actionTypes.CHANGE_SONG_LIST:
+      return state.set('songList',action.songList)
+    case actionTypes.CHANGE_PLAY_SEQUENCE:
+      return state.set('playSequence',action.playSequence)
+    case actionTypes.CHANGE_CURRENT_SONG_INDEX:
+      return state.set('currentSongIndex',action.currentSongIndex)
+    case actionTypes.CHANGE_CURRENT_LYRIC_INDEX:
+      return state.set('currentLyricIndex',action.currentLyricIndex)
+    case actionTypes.CHANGE_CURRENT_LYRIC:
+      return state.set('currentLyric',action.currentLyric)
     default:
       return state
   }

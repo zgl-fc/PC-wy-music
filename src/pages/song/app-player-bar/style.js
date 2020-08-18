@@ -167,10 +167,28 @@ export const Operator = styled.div`
     }
 
     .loop {
-      background-position: -3px -344px;
       &:hover {
-        background-position: -33px -344px;
+        background-position:${props => {
+          switch (props.sequence) {
+            case 1:
+              return "-93px -248px";
+            case 2:
+              return "-93px -344px";
+            default:
+              return "-33px -344px";
+          }
+        }} 
       }
+      background-position:${props => {
+        switch (props.sequence) {
+          case 1:
+            return "-66px -248px";
+          case 2:
+            return "-66px -344px";
+          default:
+            return "-3px -344px";
+        }
+      }} 
     }
 
     .playlist {
@@ -196,11 +214,11 @@ export const Lock = styled.div`
   .lock-btn {
     width:18px;
     height:18px;
-    background-position: ${props => props.lock ? "-100px": "-80px"} -380px;
+    background-position: ${props => props.lock ? "-100px" : "-80px"} -380px;
     /* background-position: -100px -380px; */
     margin: 6px 16px 0 17px;
     &:hover {
-      background-position: ${props => props.lock ? "-100px": "-80px"} -400px;
+      background-position: ${props => props.lock ? "-100px" : "-80px"} -400px;
     }
   }
 `

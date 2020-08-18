@@ -13,7 +13,7 @@ export default memo(function ThemeCover(props) {
     <SongsCoverWrapper>
       <div className="img-cover">
         <img src={info.picUrl} alt=""/>
-        <a href={`#/playlist/${info.id}`} className="mask sprite_covor">{''}</a>
+        <a href={`#/playlist?id=${info.id}`} className="mask sprite_covor">{''}</a>
         <div className="cover-bottom sprite_covor">
           <span className="video-views">
             <i className="listen sprite_icon"></i>
@@ -23,7 +23,7 @@ export default memo(function ThemeCover(props) {
         </div>
       </div>
       <div className="img-dec">
-        <p className="dec"><a href={`#/playlist/${info.id}`}>{info.name}</a></p>
+        <p className="dec"><a href={`#/playlist?id=${info.id}`}>{info.name}</a></p>
         <p className="author"></p>
       </div>
     </SongsCoverWrapper>

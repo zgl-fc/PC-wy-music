@@ -1,7 +1,7 @@
-export function getSizeImage(imgUrl, size=80) {
+export function getSizeImage(imgUrl, size = 80) {
   return `${imgUrl}?param=${size}x${size}`;
 }
-export function getSizeImageY(imgUrl, size=50) {
+export function getSizeImageY(imgUrl, size = 50) {
   return `${imgUrl}?param=${size}y${size}`;
 }
 
@@ -59,13 +59,13 @@ export function debounce(fn, delay = 500) {
   let timer = null
 
   return function () {
-      if (timer) {
-          clearTimeout(timer)
-      }
-      timer = setTimeout(() => {
-          fn.apply(this, arguments)
-          timer = null
-      }, delay)
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      fn.apply(this, arguments)
+      timer = null
+    }, delay)
   }
 }
 
@@ -73,12 +73,12 @@ export function throttle(fn, delay = 100) {
   let timer = null
 
   return function () {
-      if (timer) {
-          return
-      }
-      timer = setTimeout(() => {
-          fn.apply(this, arguments)
-          timer = null
-      }, delay)
+    if (timer) {
+      return
+    }
+    timer = setTimeout(() => {
+      fn.apply(this, arguments)
+      timer = null
+    }, delay)
   }
 }

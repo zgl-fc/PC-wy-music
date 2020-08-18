@@ -38,7 +38,7 @@ export default memo(function NewAblum() {
                     {
                       state.newAblums.slice(item*5, (item+1)*5).map((item, index) => {
                         return (
-                          <FCNewAblum key={item.picId_str} info={item}></FCNewAblum>
+                          <FCNewAblum key={item.picId_str+index} info={item}></FCNewAblum>
                         )
                       })
                     }

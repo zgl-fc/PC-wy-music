@@ -6,7 +6,6 @@ import FCThemeHeaderSmall from '@/components/theme-header-small'
 import {
   HotRadioWrapper
 } from './style'
-import Item from 'antd/lib/list/Item'
 export default memo(function HotRadio() {
   return (
     <HotRadioWrapper>

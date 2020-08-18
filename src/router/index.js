@@ -4,14 +4,13 @@ import { Redirect } from "react-router-dom";
 import FCDiscover from '@/pages/discover'
 import FCRecommend from "../pages/discover/c-pages/recommend";
 import FCRanking from "../pages/discover/c-pages/ranking";
-import FCPlayList from "../pages/discover/c-pages/play-list";
+import FCSongList from "../pages/discover/c-pages/song-list";
 import FCDjradio from "../pages/discover/c-pages/djradio";
 import FCArtist from "../pages/discover/c-pages/artist";
 import FCAlbum from "../pages/discover/c-pages/album";
 
 import FCSong from "@/pages/song";
-
-
+import FCPlayListP from "@/pages/playlist";
 import FCFriend from '@/pages/friend'
 import FCMine from '@/pages/mine'
 
@@ -44,8 +43,8 @@ const routes = [
         component: FCRanking
       },
       {
-        path: "/discover/playlist",
-        component: FCPlayList
+        path: "/discover/songlist",
+        component: FCSongList
       },
       {
         path: "/discover/djradio",
@@ -73,6 +72,10 @@ const routes = [
   {
     path: '/song/:id',
     component: FCSong
+  },
+  {
+    path: '/playlist',
+    component: FCPlayListP
   }
 ]
 

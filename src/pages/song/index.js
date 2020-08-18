@@ -5,21 +5,21 @@ import { useDispatch, useSelector, shallowEqual} from 'react-redux'
 import classnames from 'classnames'
 
 import { getSizeImage } from '@/utils/format-util'
-import Lyric from '@/utils/lyric-parser'
 
 
 import {
   getSongInfoAction,
   getLyricAction,
-  getCommentsAction
+  getCommentsAction,
+  getCurrentSongAction
 } from './store/actionCreators'
 
 
 import { Pagination } from 'antd';
 import FCComments from '@/components/comments'
 import FCSubHeader from '@/components/sub-header'
-import IncludeThisSong from './c-pages/include-this-song'
-import SimilarSong from './c-pages/similar-song'
+import IncludeThisSong from './c-cpns/include-this-song'
+import SimilarSong from './c-cpns/similar-song'
 
 import {
   SongWrapper,
@@ -50,8 +50,7 @@ export default memo(function Song() {
   const picUrl = songInfo.al && songInfo.al.picUrl
   const singerName = (songInfo.ar && songInfo.ar[0].name) || '不知道谁唱的'
   const album = (songInfo.al && songInfo.al.name) || '不知道'
-  const lyricObj = lyric && lyric.lyric && new Lyric(lyric.lyric)
-  const lyricArr = (lyricObj && lyricObj.lines) || []
+  const lyricArr = (lyric && lyric.lines) || []
   const paginationCount = comments.total || 1
 
   // handle function 
@@ -81,7 +80,13 @@ export default memo(function Song() {
               <p className="des">所属专辑：<a href="">{album}</a></p>
               <div className="song-btn">
                 <div className="play">
-                  <a href="javascript:;" className="ply sprite_button"><i className="ico-ply sprite_button"></i>播放</a>
+                  <a 
+                  href="javascript:;" 
+                  className="ply sprite_button"
+                  onClick={e => dispatch(getCurrentSongAction(id))}
+                  >
+                    <i className="ico-ply sprite_button"></i>播放
+                  </a>
                   <a href="javascript:;" title="添加到播放列表" className="add-list">+</a>
                 </div>
                 <a href="javascript:;"><i className="icon-col sprite_button"></i>收藏</a>

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const IncludeThisSongWrapper = styled.div`
-  display:${props => props.isShow ? 'block':'none'};
   margin-bottom:30px;
   .similar-item {
     display:flex;

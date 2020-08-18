@@ -25,8 +25,8 @@ export default memo(function IncludeThisSong(props) {
 
   const isShow = similarLists.length == 0 ? false : true
 
-  return (
-    <IncludeThisSongWrapper isShow={isShow}>
+  return isShow ? (
+    <IncludeThisSongWrapper>
       <FCThemeHeaderSmall title="包含这首歌的歌单" width="200px" />
       <ul className="similar-list">
         {
@@ -53,5 +53,5 @@ export default memo(function IncludeThisSong(props) {
         }
       </ul>
     </IncludeThisSongWrapper>
-  )
+  ):null
 })
